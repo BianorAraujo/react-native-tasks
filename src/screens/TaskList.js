@@ -1,12 +1,40 @@
 import React, { Component } from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
 import todayImage from '../../assets/imgs/today.jpg'
 import commonStyles from '../commonStyles'
+import Task from '../components/Task'
 
 export default class TaskList extends Component {
+
+    state ={
+        tasks: [{
+            id: Math.random(),
+            desc: 'Comprar Livro de React Native',
+            estimateAt: new Date(),
+            doneAt: new Date()
+        },{
+            id: Math.random(),
+            desc: 'Ler Livro de React Native',
+            estimateAt: new Date(),
+            doneAt: null
+        }]
+    }
+
+    toggleTask = taskId => {
+        const tasks = [...this.state.tasks]
+        tasks.forEach(task => {
+            if(task.id === taskId) {
+                task.doneAt = task.doneAt ? null : new Date()
+            }
+        })
+
+        this.setState({ tasks})
+    }
+
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
         return(
@@ -19,9 +47,9 @@ export default class TaskList extends Component {
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                    <Text>Tarefa #01</Text>
-                    <Text>Tarefa #02</Text>
-                    <Text>Tarefa #03</Text>
+                    <FlatList data={this.state.tasks}
+                        keyExtractor={item => `${item.id}`}
+                        renderItem={({item}) => <Task {...item} toggleTask={this.toggleTask} />} />
                 </View>
             </View>
         )
