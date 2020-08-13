@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Ionicons'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
@@ -33,7 +33,7 @@ function getCheckView(doneAt) {
     if(doneAt != null) {
         return (
             <View style={styles.done}>
-                <Icon name='check' size={20} color='#FFF'></Icon>
+                <Icon name='md-checkmark' size={18} color='#FFF'></Icon>
             </View>
         )
     }
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         borderRadius: 13,
-        backgroundColor: '#4D7031',
+        backgroundColor: '#4D7031',//42883f',
         alignItems: 'center',
         justifyContent: 'center'
     },
